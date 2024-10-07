@@ -1,31 +1,25 @@
 #include <stdio.h>
 
-template <typename Type>
-Type Min(Type a, Type b) {
-	if (a > b) {
-		return b;
+int RecursionSalary(int hour) {
+	if (hour == 1) {
+		return 100;
 	}
-	return a;
-}
-template <>
-char Min<char>(char a, char b) {
-	printf_s("数字以外は代入できません\n");
-	return 0;
+	return RecursionSalary((hour - 1)) * 2 - 50;
 }
 
-int intA = 3;
-int intB = 9;
-
-float floatA = 3.5f;
-float floatB = 8.7f;
-
-double doubleA = 5.37;
-double doubleB = 2.917;
+void money(int hour) {
+	int salary = 0;
+	int recursionSalaly = 0;
+	for (int i = 1; i <= hour; i++) {
+		int salary = i * 1072;
+		printf_s("%d時間働いたとき\n", i);
+		printf_s("一般的な資金体系 : %d円\n", salary);
+		recursionSalaly += RecursionSalary(i);
+		printf_s("再帰的な資金体系 : %d円\n\n", recursionSalaly);
+	}
+}
 
 int main() {
-	printf_s("%d\n", Min<int>(intA, intB));
-	printf_s("%f\n", Min<float>(floatA, floatB));
-	printf_s("%lf\n", Min<double>(doubleA, doubleB));
-	Min<char>(6, 3);
+	money(8);
 	return 0;
 }
