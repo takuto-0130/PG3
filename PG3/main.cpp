@@ -1,31 +1,38 @@
 #include <stdio.h>
+#include <Windows.h>
+#include <random>
+#include <time.h>
 
-template <typename Type>
-Type Min(Type a, Type b) {
-	if (a > b) {
-		return b;
+
+typedef void (*PFunc)(int*);
+
+void DispResult(int* s) {
+	printf_s("%d秒待って実行された\n", *s);
+}
+
+void setTimeout(PFunc p, int second) {
+	Sleep(second * 1000);
+
+	p(&second);
+}
+
+void DiceGame(/*PFunc p, */int& ans) {
+	while (true) {
+		printf_s("半(奇数)か丁(偶数)か\n");
+		printf_s("半 : 1を入力\n");
+		printf_s("丁 : 2を入力\n");
+		scanf_s("入力 : %d", &ans);
+		if (ans != 1 && ans != 2) {
+			continue;
+		}
+		Sleep(3000);
 	}
-	return a;
 }
-template <>
-char Min<char>(char a, char b) {
-	printf_s("数字以外は代入できません\n");
-	return 0;
-}
-
-int intA = 3;
-int intB = 9;
-
-float floatA = 3.5f;
-float floatB = 8.7f;
-
-double doubleA = 5.37;
-double doubleB = 2.917;
 
 int main() {
-	printf_s("%d\n", Min<int>(intA, intB));
-	printf_s("%f\n", Min<float>(floatA, floatB));
-	printf_s("%lf\n", Min<double>(doubleA, doubleB));
-	Min<char>(6, 3);
+	srand(0);
+	int ans = 0;
+	DiceGame(ans);
+
 	return 0;
 }
