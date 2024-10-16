@@ -10,7 +10,7 @@ void setTimeout(int* second) {
 }
 
 void RandomDice(int* ans) {
-	int dice = rand() % 6;
+	int dice = rand() % 6 + 1;
 	if (dice % 2 == *ans) {
 		printf_s("正解 : サイコロの目%d\n\n\n", dice);
 	}
