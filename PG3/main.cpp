@@ -9,33 +9,8 @@ void setTimeout(int second) {
 	Sleep(second * 1000);
 }
 
-//void RandomDice(int* ans) {
-//	int dice = rand() % 6;
-//	if (dice % 2 == *ans) {
-//		printf_s("正解 : サイコロの目%d\n\n\n", dice);
-//	}
-//	else {
-//		printf_s("不正解 : サイコロの目%d\n\n\n", dice);
-//	}
-//}
-//
-//void DiceGame(PFunc pTime, int second, PFunc randomDice, int& ans) {
-//	while (true) {
-//		ans = 0;
-//		printf_s("丁(偶数)か半(奇数)か\n");
-//		printf_s("丁 : 0を入力\n");
-//		printf_s("半 : 1を入力\n");
-//		printf_s("入力 : ");
-//		scanf_s("%d", &ans);
-//		if (ans == 0 || ans == 1) {
-//			pTime(&second);
-//			randomDice(&ans);
-//		}
-//	}
-//}
-
 int main() {
-	srand(0);
+	srand((unsigned int)time(NULL));
 	int ans = 0;
 	int sleepTime = 3;
 	std::function<void(int&)> input = [&](int& ans) {scanf_s("%d", &ans); };
@@ -57,7 +32,7 @@ int main() {
 		printf_s("丁 : 0を入力\n");
 		printf_s("半 : 1を入力\n");
 		printf_s("入力 : ");
-		printf_s("%d", ans);
+		input(ans);
 		if (checkInput(ans)) {
 			setTimeout(sleepTime);
 			randomDice(ans);
