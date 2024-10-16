@@ -5,34 +5,41 @@
 
 
 typedef void (*PFunc)(int*);
-
-void DispResult(int* s) {
-	printf_s("%d秒待って実行された\n", *s);
+void setTimeout(int* second) {
+	Sleep(*second * 1000);
 }
 
-void setTimeout(PFunc p, int second) {
-	Sleep(second * 1000);
-
-	p(&second);
+void RandomDice(int* ans) {
+	int dice = rand() % 6;
+	if (dice % 2 == *ans) {
+		printf_s("正解 : サイコロの目%d\n\n\n", dice);
+	}
+	else {
+		printf_s("不正解 : サイコロの目%d\n\n\n", dice);
+	}
 }
 
-void DiceGame(/*PFunc p, */int& ans) {
+void DiceGame(PFunc pTime, int second, PFunc randomDice, int& ans) {
 	while (true) {
-		printf_s("半(奇数)か丁(偶数)か\n");
+		ans = 0;
+		printf_s("丁(偶数)か半(奇数)か\n");
+		printf_s("丁 : 0を入力\n");
 		printf_s("半 : 1を入力\n");
-		printf_s("丁 : 2を入力\n");
-		scanf_s("入力 : %d", &ans);
-		if (ans != 1 && ans != 2) {
-			continue;
+		printf_s("入力 : ");
+		scanf_s("%d", &ans);
+		if (ans == 0 || ans == 1) {
+			pTime(&second);
+			randomDice(&ans);
 		}
-		Sleep(3000);
 	}
 }
 
 int main() {
 	srand(0);
 	int ans = 0;
-	DiceGame(ans);
+	PFunc p = setTimeout;
+	PFunc random = RandomDice;
+	DiceGame(p, 3, random, ans);
 
 	return 0;
 }
