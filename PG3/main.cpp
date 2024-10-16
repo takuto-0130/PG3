@@ -35,7 +35,7 @@ void DiceGame(PFunc pTime, int second, PFunc randomDice, int& ans) {
 }
 
 int main() {
-	srand(0);
+	srand((unsigned int)time(NULL));
 	int ans = 0;
 	PFunc p = setTimeout;
 	PFunc random = RandomDice;
