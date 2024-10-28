@@ -12,18 +12,25 @@ public:
 	Enemy();
 	~Enemy();
 	//
+
+	void Update();
+
+private:
+	//
 	void Approach();
 
 	void Attack();
 
 	void Leave();
 
-	void Update();
+	void(Enemy::*pFunc)();
 
 private:
-	//
+
 	static void (Enemy::* spFuncTable[])();
 
-	EnemyPhase phase_;
+	EnemyPhase phase_ = EnemyPhase::kApproach;
+
+	Enemy::* pFunc;
 };
 
