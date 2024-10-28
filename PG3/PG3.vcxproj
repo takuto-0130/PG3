@@ -129,10 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Automobile.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Motorcycle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Comparison.h" />
+    <ClInclude Include="Automobile.h" />
+    <ClInclude Include="Motorcycle.h" />
+    <ClInclude Include="vehicle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
