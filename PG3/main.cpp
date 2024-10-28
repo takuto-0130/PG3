@@ -1,23 +1,18 @@
 #include <stdio.h>
-#include <Windows.h>
-#include "Automobile.h"
-#include "Motorcycle.h"
+#include "Circle.h"
+#include "Rectangle.h"
+#include <memory>
 
 int main() {
-	Vehicle* vehicle[3];
+	std::unique_ptr<Circle> circle = std::make_unique<Circle>(4.5f);
+	std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(3.7f, 4.2f);
 
-	// 生成
-	vehicle[0] = new Automobile("automobile1");
-	vehicle[1] = new Motorcycle("motorcycle");
-	vehicle[2] = new Automobile("automobile2");
+	circle->Size();
+	rect->Size();
 
-	for(int i = 0; i < 3; i++){
-		vehicle[i]->GetNumWheels();
-	}
+	circle->Draw();
+	rect->Draw();
 
-	for (int i = 0; i < 3; i++) {
-		delete vehicle[i];
-	}
 
 	return 0;
 }
