@@ -15,6 +15,8 @@ public:
 
 	void Update();
 
+	bool IsEnd() { return isEnd_; }
+
 private:
 	//
 	void Approach();
@@ -23,14 +25,16 @@ private:
 
 	void Leave();
 
-	void(Enemy::*pFunc)();
+	void PhaseSet(const EnemyPhase phase);
 
 private:
+
+	void(Enemy::* pFunc)();
 
 	static void (Enemy::* spFuncTable[])();
 
 	EnemyPhase phase_ = EnemyPhase::kApproach;
 
-	Enemy::* pFunc;
+	bool isEnd_ = false;
 };
 

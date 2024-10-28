@@ -10,7 +10,10 @@
 int main() {
 	Enemy* enemy;
 	enemy = new Enemy();
-	enemy->Update();
+	while(!enemy->IsEnd())
+	{
+		enemy->Update();
+	}
 	delete enemy;
 
 	return 0;
