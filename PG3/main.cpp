@@ -1,46 +1,26 @@
 #include <stdio.h>
-#include <functional>
-#include <Windows.h>
-#include <random>
-#include <time.h>
-
-
-void setTimeout(int second) {
-	Sleep(second * 1000);
-}
+#include <string>
+#include <chrono>
 
 int main() {
-	srand((unsigned int)time(NULL));
-	int ans = 0;
-	int sleepTime = 3;
-	std::function<void(int&)> input = [&](int& ans) {scanf_s("%d", &ans); };
-	std::function<bool(int)> checkInput = [&](int ans) {
-		return (ans == 0 || ans == 1); 
-		};
+	const int SIZE = 100000;
+	std::string stringA(SIZE, 'a'); // 10万文字の 'a' で初期化
 
-	std::function<void(int)> randomDice = [&](int ans) {
-		int dice = rand() % 6 + 1;
-		if (dice % 2 == ans) {
-			printf_s("正解 : サイコロの目%d\n\n\n", dice);
-		}
-		else {
-			printf_s("不正解 : サイコロの目%d\n\n\n", dice);
-		}};
-	
-	while (true) {
-		printf_s("丁(偶数)か半(奇数)か\n");
-		printf_s("丁 : 0を入力\n");
-		printf_s("半 : 1を入力\n");
-		printf_s("入力 : ");
-		input(ans);
-		if (checkInput(ans)) {
-			setTimeout(sleepTime);
-			randomDice(ans);
-		}
-		else{
-			printf_s("無効な入力です\n\n");
-		}
-	}
+	// コピーの時間測定
+	auto startCopy = std::chrono::high_resolution_clock::now();
+	std::string copyA = stringA; // コピー
+	auto endCopy = std::chrono::high_resolution_clock::now();
+	auto copyTime = std::chrono::duration_cast<std::chrono::microseconds>(endCopy - startCopy);
+
+	// 移動の時間測定
+	auto startMove = std::chrono::high_resolution_clock::now();
+	std::string moveA = std::move(stringA); // 移動
+	auto endMove = std::chrono::high_resolution_clock::now();
+	auto moveTime = std::chrono::duration_cast<std::chrono::microseconds>(endMove - startMove);
+
+	// 結果を表示
+	printf_s("コピー時間 : %lld マイクロ秒\n", copyTime.count());
+	printf_s("移動時間 : %lld マイクロ秒\n", moveTime.count());
 
 	return 0;
 }
